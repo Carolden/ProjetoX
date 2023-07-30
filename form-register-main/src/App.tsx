@@ -52,7 +52,6 @@ const segments: Addon[] = [
     icon: "Inbox",
   },
 ];
-//const segmentsFiltro = segments.filter((segment) => segments.startsWith(busca));
 
 const interests: Addon[] = [
   {

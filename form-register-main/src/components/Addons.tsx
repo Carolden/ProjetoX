@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Addon } from "AppTypes";
 import AddonCard from "./AddonCard";
-import "./Searchbar.css"
-import segments from "../App"
+import "./Searchbar.css";
+import segments from "../App";
 import interests from "../App";
 
 interface AddonsProps {
@@ -18,13 +18,64 @@ export const Addons = ({
   addons,
   titleAddon,
 }: AddonsProps) => {
+  const [searchTerm, setSearchTerm] = useState("");
 
-  //const [busca, setBusca] = useState(""); 
-  //const segmentsFiltro = segments.filter((segment) => segments.startsWith(busca));
+  const segmentsList: Addon[] = [
+    {
+      name: "Industria",
+      icon: "Factory",
+    },
+    {
+      name: "Distribuidora",
+      icon: "Truck",
+    },
+    {
+      name: "Varejo",
+      icon: "ShoppingBasket",
+    },
+    {
+      name: "Logistica",
+      icon: "Lightbulb",
+    },
+    {
+      name: "Saúde",
+      icon: "Activity",
+    },
+    {
+      name: "Agroindústria",
+      icon: "Wheat",
+    },
+    {
+      name: "Franquias",
+      icon: "Copy",
+    },
+    {
+      name: "E-commerce",
+      icon: "ShoppingCart",
+    },
+    {
+      name: "Construção",
+      icon: "Hammer",
+    },
+    {
+      name: "Marketing",
+      icon: "TrendingUp",
+    },
+    {
+      name: "Outro",
+      icon: "Inbox",
+    },
+  ];
 
-  
+  const filteredSegments = segmentsList.filter((segment) =>
+    segment.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
-    
     <section className="flex flex-col w-95 gap-4">
       <h2>{titleAddon}</h2>
       <p>
@@ -34,18 +85,21 @@ export const Addons = ({
         experiência data driven.
       </p>
 
-
-      
-      //<input value={busca} onChange={(ev) => setBusca(ev.target.value)} className="searchbar" type="text" placeholder="Desenrola bate..." /> 
-      
+      <input
+        className="searchbar"
+        type="text"
+        placeholder="Pesquisar segmento..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
 
       <div className="h-72 overflow-auto">
-        {addons.map((addon) => (
+        {filteredSegments.map((segment) => (
           <AddonCard
-            addon={addon}
+            addon={segment}
             selectedAddons={selectedAddons}
             updateAddons={updateAddons}
-            key={addon.name}
+            key={segment.name}
           />
         ))}
       </div>
